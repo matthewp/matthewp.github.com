@@ -62,8 +62,10 @@ var GitHubRepos = new function(){
                 var proj_div = GitHubRepos.displayObjects[user.login][j];
                 //for each of the user repositories in the data
                 $.each(user.repositories, function(i, repo) {
-                    //add the templated information to the divs existing content
-                    proj_div.innerHTML = proj_div.innerHTML + format(REPO_TEMPLATE, repo.url, repo.name);
+					if (repo.name.indexOf("github.com") != -1) {
+						//add the templated information to the divs existing content
+						proj_div.innerHTML = proj_div.innerHTML + format(REPO_TEMPLATE, repo.url, repo.name);
+					}
                 });
                 //the style div.github-projects is display: none by default
                 //display it if there was no error message
