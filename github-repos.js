@@ -9,9 +9,12 @@ DYNAMIC_SCRIPT_TEMPLATE = "<script src='{0}' type='text/javascript' ></script>";
 GITHUB_PROJECTS_SELECTOR = ".github-projects";
 REPO_TEMPLATE =
     "<div class='github-repo'>"
-    +   "<a href='{0}' target='_blank'>"
+    +   "<h3><a href='{0}' target='_blank'>"
     +  	  "{1}"
-    +	  "</a>"
+    +	  "</a> - {2}</h3>"
+    +   "<div class='github-desc'>"
+    +	"{3}"
+    +	"</div>"
     +"</div>";
 
 var GitHubRepos = new function(){
@@ -63,8 +66,9 @@ var GitHubRepos = new function(){
                 //for each of the user repositories in the data
                 $.each(user.repositories, function(i, repo) {
 					if (repo.name.indexOf("github.com") == -1) {
+						var link = (repo.homepage.length > 0 ? repo.homepage : repo.url);
 						//add the templated information to the divs existing content
-						proj_div.innerHTML = proj_div.innerHTML + format(REPO_TEMPLATE, repo.url, repo.name);
+						proj_div.innerHTML = proj_div.innerHTML + format(REPO_TEMPLATE, link, repo.name, repo.language, repo.description);
 					}
                 });
                 //the style div.github-projects is display: none by default
